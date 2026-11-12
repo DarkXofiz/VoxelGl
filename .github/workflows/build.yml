@@ -19,12 +19,13 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - uses: android-actions/setup-android@v3
-
-      - name: Install SDK/NDK
+      - name: Install SDK/NDK (preinstalled SDK)
+        shell: bash {0}
         run: |
-          yes | sdkmanager --licenses > /dev/null || true
-          sdkmanager "platforms;android-36" "build-tools;36.0.0" "ndk;27.3.13750724" "cmake;3.22.1"
+          SDKM=$(ls $ANDROID_HOME/cmdline-tools/*/bin/sdkmanager | head -n1)
+          yes | $SDKM --licenses > /dev/null
+          $SDKM "platforms;android-36" "build-tools;36.0.0" "ndk;27.3.13750724" "cmake;3.22.1" > /dev/null
+          echo "sdkmanager exit: $?"
 
       - uses: gradle/actions/setup-gradle@v4
 
