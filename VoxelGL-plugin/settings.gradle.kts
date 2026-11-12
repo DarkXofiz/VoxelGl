@@ -23,3 +23,5 @@ dependencyResolutionManagement {
 rootProject.name = "VoxelGL-plugin"
 include(":app")
 include(":MobileGlues")
+
+project(":MobileGlues").projectDir = file("../VoxelGL-core")
